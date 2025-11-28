@@ -1,121 +1,1321 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | My Lego project learning basics</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
-  <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE Method Interactive - Ethics Beyond Boundaries</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        
+        .mono { font-family: 'IBM Plex Mono', monospace; }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            color: #667eea;
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .scenario-select {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .scenario-select h2 {
+            color: #1a1a2e;
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+        }
+        
+        .scenario-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        .scenario-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .scenario-card:hover {
+            transform: translateY(-4px);
+            border-color: #667eea;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .scenario-card.completed {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border-color: #10b981;
+        }
+        
+        .scenario-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .scenario-card h3 {
+            color: #1a1a2e;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .scenario-card p {
+            color: #666;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        .scenario-card .status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #10b981;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .sage-workspace {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+        
+        .sage-workspace.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .scenario-header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .scenario-header h2 {
+            color: #1a1a2e;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .scenario-description {
+            background: #f9fafb;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        .sage-steps {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        
+        .sage-step {
+            flex: 1;
+            min-width: 120px;
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .sage-step.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .sage-step.completed {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        
+        .sage-step .step-number {
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            opacity: 0.7;
+        }
+        
+        .sage-step .step-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .sage-step.completed .step-name::after {
+            content: ' ✓';
+            color: #10b981;
+        }
+        
+        .step-content {
+            display: none;
+        }
+        
+        .step-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .step-content h3 {
+            color: #1a1a2e;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .step-instruction {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.5rem;
+            color: #1e40af;
+        }
+        
+        .checklist {
+            margin: 1.5rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .checklist-item:hover {
+            border-color: #667eea;
+            background: #f9fafb;
+        }
+        
+        .checklist-item.checked {
+            background: #f0fdf4;
+            border-color: #10b981;
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-top: 2px;
+        }
+        
+        .checklist-item label {
+            flex: 1;
+            cursor: pointer;
+            line-height: 1.6;
+        }
+        
+        .text-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .save-indicator {
+            color: #10b981;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .save-indicator.show {
+            opacity: 1;
+        }
+        
+        .option-grid {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .option-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option-card:hover {
+            border-color: #667eea;
+            background: #f9fafb;
+        }
+        
+        .option-card.selected {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-color: #3b82f6;
+        }
+        
+        .option-card h4 {
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+        }
+        
+        .option-card p {
+            color: #666;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        .consequence-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            display: none;
+        }
+        
+        .consequence-box.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .consequence-box h4 {
+            color: #92400e;
+            margin-bottom: 0.75rem;
+        }
+        
+        .expert-comparison {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .expert-comparison h3 {
+            color: #065f46;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .step-navigation {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e5e7eb;
+        }
+        
+        .progress-bar {
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.5s;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content h2 {
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+        }
+        
+        .close-modal {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            line-height: 1;
+        }
+        
+        .close-modal:hover {
+            color: #000;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 1.75rem; }
+            .scenario-grid { grid-template-columns: 1fr; }
+            .sage-steps { flex-direction: column; }
+            .sage-step { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SAGE Method Interactive</h1>
+            <p class="tagline">Practice Systematic Ethical Analysis</p>
+            <p class="subtitle">See • Analyze • Generate • Engage</p>
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showProgress()">📊 My Progress</button>
+                <button class="btn btn-secondary" onclick="exportReflections()">💾 Export Reflections</button>
+            </div>
+        </header>
+
+        <!-- Scenario Selection -->
+        <div class="scenario-select" id="scenarioSelect">
+            <h2>Choose a Scenario to Practice</h2>
+            <div class="scenario-grid">
+                <div class="scenario-card" onclick="selectScenario('roommate')" id="card-roommate">
+                    <span class="icon">🏠</span>
+                    <h3>Roommate Conflict</h3>
+                    <p>Personal dilemma about shared living space and fairness</p>
+                </div>
+                
+                <div class="scenario-card" onclick="selectScenario('academic')" id="card-academic">
+                    <span class="icon">📚</span>
+                    <h3>Academic Integrity</h3>
+                    <p>Witnessing cheating and deciding how to respond</p>
+                </div>
+                
+                <div class="scenario-card" onclick="selectScenario('workplace')" id="card-workplace">
+                    <span class="icon">💼</span>
+                    <h3>Workplace Safety</h3>
+                    <p>Manager pressuring you to take dangerous shortcuts</p>
+                </div>
+                
+                <div class="scenario-card" onclick="selectScenario('professional')" id="card-professional">
+                    <span class="icon">⚖️</span>
+                    <h3>Whistleblowing</h3>
+                    <p>Discovering your company is harming customers</p>
+                </div>
+                
+                <div class="scenario-card" onclick="selectScenario('systemic')" id="card-systemic">
+                    <span class="icon">🏛️</span>
+                    <h3>Institutional Bias</h3>
+                    <p>Recognizing systemic discrimination in your organization</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">My Lego project learning basics</div>
-      </div>
+
+        <!-- SAGE Workspace -->
+        <div class="sage-workspace" id="sageWorkspace">
+            <!-- Will be populated by JavaScript -->
+        </div>
     </div>
+
+    <!-- Progress Modal -->
+    <div class="modal" id="progressModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('progressModal')">&times;</span>
+            <h2>Your Progress</h2>
+            <div id="progressContent"></div>
+        </div>
+    </div>
+
     <script>
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-      var warningBanner = document.querySelector("#unity-warning");
+        // Scenario Data
+        const scenarios = {
+            roommate: {
+                title: "Roommate Conflict: Shared Responsibilities",
+                icon: "🏠",
+                description: "You share an apartment with two roommates. One roommate, Alex, consistently doesn't do their share of cleaning and often eats food others have bought. When confronted, Alex says they're too stressed with work and school to worry about 'small stuff.' The other roommate wants to kick Alex out immediately, but you know Alex is struggling financially and would have nowhere to go.",
+                seeing: {
+                    instruction: "Identify all relevant facts, stakeholders, and context. Good ethical analysis starts with complete understanding.",
+                    checklist: [
+                        "Identified all stakeholders (you, Alex, other roommate, possibly landlord)",
+                        "Listed specific problems (cleaning, food, money issues)",
+                        "Noted Alex's circumstances (work/school stress, financial struggles)",
+                        "Considered living situation constraints (lease, housing market)",
+                        "Identified your own stake in this (living conditions, relationships)"
+                    ],
+                    reflection: "What other facts or perspectives might you be missing?"
+                },
+                analyzing: {
+                    instruction: "Apply ethical frameworks and consider how different lenses view this situation. Each lens provides different warrants (justifications) for action.",
+                    questions: [
+                        "How might your PRF (past experiences with roommates, family dynamics) influence your view?",
+                        "Utilitarian perspective: What action creates the best overall outcome for everyone? What warrants (evidence, reasoning) support this?",
+                        "Deontological perspective: What duties do you have (to fairness, to compassion)? What principles warrant these duties?",
+                        "Care ethics perspective: How do you maintain relationships while addressing harm? What values warrant prioritizing relationships?",
+                        "What are the constraints (lease terms, financial realities, alternative housing)?",
+                        "Preview: Later in the course, you'll learn the Toulmin method for identifying and evaluating these warrants systematically."
+                    ],
+                    reflection: "Which ethical framework feels most relevant to you, and what warrants (reasons/evidence) make it compelling?"
+                },
+                generating: {
+                    instruction: "Brainstorm multiple possible actions. Don't evaluate yet—just generate options.",
+                    options: [
+                        {
+                            title: "Immediate Eviction",
+                            description: "Support the other roommate's desire to ask Alex to leave immediately.",
+                            consequences: "Quick resolution of immediate problem, but Alex may face homelessness. Relationship damaged permanently. You may feel guilt."
+                        },
+                        {
+                            title: "Structured Intervention",
+                            description: "Create a formal agreement with specific expectations, consequences, and a timeline for improvement.",
+                            consequences: "Gives Alex a chance to change. Clear boundaries set. May work, but requires ongoing monitoring and potential conflict."
+                        },
+                        {
+                            title: "Support + Accountability",
+                            description: "Offer to help Alex create a manageable schedule while holding firm boundaries about shared responsibilities.",
+                            consequences: "Most compassionate, acknowledges Alex's struggles. Time-intensive. May be seen as enabling by other roommate."
+                        },
+                        {
+                            title: "Gradual Transition",
+                            description: "Give Alex 2-3 months to find alternative housing while maintaining current arrangement with clear expectations.",
+                            consequences: "Balances compassion with resolution. Medium-term solution. Still requires tolerating current situation temporarily."
+                        }
+                    ],
+                    reflection: "What other creative solutions might address both the immediate problem and underlying issues?"
+                },
+                engaging: {
+                    instruction: "Choose an action, plan implementation, and prepare for ongoing monitoring and adjustment. Engaging means staying actively involved—watching for unintended consequences and adapting as the situation evolves.",
+                    questions: [
+                        "Which option aligns best with your values and the specific context? What warrants (reasons) justify this choice?",
+                        "How would you communicate this decision to both roommates?",
+                        "What would indicate your chosen approach is working? What metrics or signs would you monitor?",
+                        "What would indicate you need to change course? What unintended consequences might emerge?",
+                        "How would you handle setbacks or resistance?",
+                        "As context changes (Alex gets new job, other roommate leaves, lease ends), how would you adapt?",
+                        "Preview: Toulmin method (taught later) helps you examine whether your warrants remain valid as circumstances shift."
+                    ],
+                    expert: "Expert SAGE Analysis: Many students lean toward either immediate eviction (prioritizing their own comfort) or unlimited patience (avoiding conflict). A strong SAGE approach recognizes this is a coordination problem: three people with different needs, resources, and stressors trying to coexist. The 'Structured Intervention' or 'Gradual Transition' options balance accountability with compassion, creating clear expectations while acknowledging reality. Key to Engagement: This isn't a one-time decision—you must monitor whether Alex follows through, whether the other roommate stays patient, whether your own stress becomes unsustainable. Each ethical lens provides different warrants for adjustment: Utilitarians might pivot if collective unhappiness exceeds Alex's benefit; care ethics might stick longer; deontologists might hold firm to the agreed timeline. Notice how this connects to Chapter 1's PRF concept—your past experiences with conflict and authority will shape which option feels 'right' to you and how patient you remain during implementation."
+                }
+            },
+            academic: {
+                title: "Academic Integrity: Witnessing Cheating",
+                icon: "📚",
+                description: "During an important exam, you notice your friend Sarah clearly using her phone under her desk to look up answers. The professor isn't watching. Sarah is a straight-A student who's applying to medical school, and one bad grade could hurt her chances. You know she's been dealing with a family crisis and hasn't had time to study. After the exam, Sarah thanks you for not saying anything, assuming you saw but stayed quiet.",
+                seeing: {
+                    instruction: "Gather all relevant facts and identify everyone affected by this situation.",
+                    checklist: [
+                        "Identified all stakeholders (you, Sarah, other students, professor, medical schools, future patients)",
+                        "Listed the specific violation (phone use during exam, academic dishonesty)",
+                        "Noted Sarah's circumstances (family crisis, med school application pressure)",
+                        "Considered broader impacts (integrity of grades, fairness to other students)",
+                        "Recognized your position (witness, friend, fellow student)"
+                    ],
+                    reflection: "Who else is affected by academic dishonesty beyond the immediate situation?"
+                },
+                analyzing: {
+                    instruction: "Apply different ethical frameworks and consider how each provides warrants (justifications) for action.",
+                    questions: [
+                        "How does your PRF influence this? (Have you been in situations where rules conflicted with loyalty?)",
+                        "Deontological view: What is your duty to honesty, fairness, friendship? What principles warrant these duties?",
+                        "Utilitarian view: What creates the best outcomes for the most people? What evidence warrants this conclusion?",
+                        "Virtue ethics: What would an honest, compassionate person do? What character ideals warrant this?",
+                        "Professional ethics: If Sarah becomes a doctor, does this matter? What professional standards provide warrants?",
+                        "Preview: Later in the course, you'll learn the Toulmin method for making these warrants explicit and evaluating their strength."
+                    ],
+                    reflection: "Is there a difference between 'not reporting' and 'actively covering up'? What warrants (reasons) make your ethical line compelling?"
+                },
+                generating: {
+                    instruction: "Explore different possible actions without judging them yet.",
+                    options: [
+                        {
+                            title: "Report to Professor",
+                            description: "Tell the professor what you witnessed, either immediately or privately after class.",
+                            consequences: "Upholds academic integrity. Sarah faces consequences (failing grade, possible expulsion). Friendship likely ends. You may face social backlash from peers."
+                        },
+                        {
+                            title: "Confront Sarah Privately",
+                            description: "Talk to Sarah about what you saw, express concern about her integrity, and encourage her to report herself or retake the exam.",
+                            consequences: "Maintains friendship while addressing the issue. Gives Sarah agency. But she may refuse, and then what? You become complicit if you do nothing further."
+                        },
+                        {
+                            title: "Anonymous Report",
+                            description: "Report the incident anonymously so the professor can investigate without Sarah knowing it was you.",
+                            consequences: "Protects your anonymity. Upholds integrity. But Sarah may suspect you anyway. Professor may not be able to prove anything without your testimony."
+                        },
+                        {
+                            title: "Do Nothing",
+                            description: "Stay silent, reasoning that it's not your responsibility to police others.",
+                            consequences: "Preserves friendship. Avoids conflict. But creates ethical burden for you. Unfair to students who studied honestly. Sets precedent that cheating is acceptable if not caught."
+                        }
+                    ],
+                    reflection: "What would you want someone to do if you were in Sarah's position? What about if you were another student who studied hard?"
+                },
+                engaging: {
+                    instruction: "Select an action, plan implementation, and prepare for ongoing monitoring. Engaging means staying actively involved—watching for unintended consequences, context shifts, and adapting your approach.",
+                    questions: [
+                        "Which option best balances integrity with compassion? What warrants (reasons) justify this choice?",
+                        "How would you handle Sarah's likely emotional response?",
+                        "What would you monitor? (Sarah's behavior changes? Your own conscience? Peer reactions?)",
+                        "What unintended consequences might emerge? (Friendship erosion? Social ostracism? Guilt?)",
+                        "What would make you escalate or pivot to a different approach?",
+                        "If context changes (Sarah gets caught elsewhere, you need her help later), how do you adapt?",
+                        "As you monitor, ask: Do my original warrants still hold? Has new evidence emerged?",
+                        "Preview: Toulmin method (taught later) helps you examine whether warrants remain valid as circumstances shift."
+                    ],
+                    expert: "Expert SAGE Analysis: This scenario reveals tension between competing moral goods: loyalty to a friend vs. fairness to others vs. integrity of the system. Notice that 'doing nothing' isn't neutral—silence is a choice with consequences. Strong SAGE analysis recognizes this is also about systemic pressure: medical school competition creates environments where students feel desperate. The 'Confront Sarah Privately' option attempts to restore Sarah's own agency—giving her the chance to take responsibility rather than being caught. However, this requires Sarah to cooperate. Engaging means monitoring: Is Sarah changing her behavior? Is your conscience clear? Is the friendship intact or eroding from unspoken tension? Different frameworks provide different warrants for pivoting: If your warrant was 'preserve friendship' but guilt erodes it anyway, you might need to reconsider. Key insight from Chapter 2: when individual ethics meets institutional pressure (academic competition), individual action alone may not be sufficient. The real question is: what kind of person do YOU want to be, and what does that require in this moment—and over time?"
+                }
+            },
+            workplace: {
+                title: "Workplace Safety: Pressure to Cut Corners",
+                icon: "💼",
+                description: "You work in a warehouse where your manager, Jordan, increasingly pressures workers to skip safety protocols to meet shipping quotas. Yesterday, Jordan told you to operate a forklift without completing the required safety check because 'we're behind schedule.' You've seen two minor accidents in the past month. Your coworkers need their jobs and fear speaking up. You're the most experienced worker on your shift.",
+                seeing: {
+                    instruction: "Map out all stakeholders, risks, and relevant facts.",
+                    checklist: [
+                        "Identified stakeholders (you, coworkers, Jordan, upper management, customers, potentially injured parties)",
+                        "Documented specific safety violations (skipped forklift checks, rushed procedures)",
+                        "Noted recent accidents and near-misses",
+                        "Recognized power dynamics (manager pressure, worker fears)",
+                        "Understood your unique position (experience, credibility)"
+                    ],
+                    reflection: "What information would help you assess the actual risk level? How serious are the shortcuts?"
+                },
+                analyzing: {
+                    instruction: "Apply ethical frameworks and consider constraints. Each lens provides different warrants (justifications) for how to respond.",
+                    questions: [
+                        "How might your PRF affect this? (Past experiences with authority, risk tolerance, job security concerns)",
+                        "Professional ethics: What does safety certification require of you? What professional standards warrant action?",
+                        "Utilitarian: What prevents the most harm in the long run? What evidence warrants this assessment?",
+                        "Deontological: What duties do you have to coworkers' safety? What principles warrant these duties?",
+                        "What are the institutional pressures creating this situation? (How does extractive focus on quotas externalize safety costs?)",
+                        "Preview: Later in the course, you'll learn the Toulmin method for evaluating whether your warrants are strong enough to justify risk."
+                    ],
+                    reflection: "Does this remind you of any historical case? (Hint: Challenger disaster, Chapter 1) What warrants did Boisjoly have, and why weren't they sufficient?"
+                },
+                generating: {
+                    instruction: "Brainstorm actions from immediate to systemic.",
+                    options: [
+                        {
+                            title: "Refuse & Document",
+                            description: "Refuse to skip safety checks, document all incidents, but don't escalate yet.",
+                            consequences: "Protects your integrity and immediate safety. May create tension with Jordan. Other workers might not follow your lead. Problem continues for others."
+                        },
+                        {
+                            title: "Collective Action",
+                            description: "Talk with coworkers to present concerns to Jordan as a group, showing unified concern for safety.",
+                            consequences: "Strength in numbers. Harder for Jordan to retaliate against everyone. But requires organizing, and some workers may be too afraid to participate."
+                        },
+                        {
+                            title: "Escalate to HR/Safety",
+                            description: "Report Jordan's practices to HR or company safety officer, with specific documentation.",
+                            consequences: "Brings institutional power to bear. May trigger formal investigation. Could result in changes. Possible retaliation. May be seen as 'going over Jordan's head.'"
+                        },
+                        {
+                            title: "External Report",
+                            description: "Report to OSHA or other external regulatory agency.",
+                            consequences: "Most powerful intervention. Protects workers broadly. Likely triggers investigation. May result in your termination despite whistleblower protections. Could damage company."
+                        }
+                    ],
+                    reflection: "What would Roger Boisjoly do? How is this similar to or different from the Challenger situation?"
+                },
+                engaging: {
+                    instruction: "Choose an approach, plan implementation, and prepare for ongoing monitoring and adaptation. Engaging means staying vigilant as the situation evolves.",
+                    questions: [
+                        "Which level of escalation matches the severity of risk? What warrants (evidence, principles) justify this level?",
+                        "How would you document violations to protect yourself and others?",
+                        "What would you monitor? (Accident rates? Jordan's retaliation? Coworker participation? Your own job security?)",
+                        "What unintended consequences might emerge? (Isolation? Termination? Other workers emboldened or frightened?)",
+                        "What would make you escalate to the next level? At what point do warrants for individual action become warrants for collective or external action?",
+                        "How would you handle retaliation if it occurs? What's your adaptation plan?",
+                        "As context shifts (management changes, accident happens, coworkers join you), how do you engage differently?",
+                        "Preview: Toulmin method helps you ask: When do professional ethics warrants override job security warrants?"
+                    ],
+                    expert: "Expert SAGE Analysis: This scenario directly parallels Chapter 1's Challenger case—you're in a Boisjoly position. Your PRF (shaped by experience and position) makes you especially aware of the danger, but institutional pressure (production quotas) creates a system that externalizes safety costs. Key insight: Boisjoly used every proper channel and seven people still died. This teaches us that individual integrity is necessary but not sufficient when systems are extractive. The 'Collective Action' option attempts to shift from individual to group agency, changing the power dynamics. Engaging means monitoring: Are accidents increasing? Is Jordan retaliating? Are coworkers joining your stance or isolating you? Strong SAGE analysis here recognizes this isn't just about YOUR choice—it's about whether the institution metabolizes safety costs or externalizes them to workers. Your warrants for action may need to escalate: Individual refusal → Collective action → External reporting. Connection to Chapter 2: This is a metabolic vs. extractive institution decision point. Your persistent engagement can force the system to internalize safety costs—but it requires monitoring and adaptation, not one-time heroism."
+                }
+            },
+            professional: {
+                title: "Whistleblowing: Company Harming Customers",
+                icon: "⚖️",
+                description: "You're an engineer at a pharmaceutical company. You've discovered that your company's popular diabetes medication has a manufacturing defect affecting approximately 5% of batches, potentially causing dangerous blood sugar spikes. You reported this through proper channels three months ago, but management decided the recall cost was too high and implemented a 'quiet quality improvement' process for future batches without addressing medication already distributed. Thousands of people are using potentially defective medication right now.",
+                seeing: {
+                    instruction: "Identify all facts, stakeholders, and scale of potential harm.",
+                    checklist: [
+                        "Documented the specific defect and its effects (5% of batches, blood sugar spikes)",
+                        "Identified affected parties (current users, future users, their families)",
+                        "Noted company's response (cost-benefit calculation, no recall)",
+                        "Recognized your position (engineer with knowledge, used proper channels)",
+                        "Assessed timescale (ongoing harm happening now)"
+                    ],
+                    reflection: "What additional information would help quantify the risk? How many people could be affected?"
+                },
+                analyzing: {
+                    instruction: "Analyze through multiple ethical and practical lenses. Pay attention to how different frameworks provide different warrants (justifications) for action.",
+                    questions: [
+                        "How does your PRF influence this? (Trust in institutions, risk assessment, loyalty to employer)",
+                        "Utilitarian: How do you weigh certain economic harm vs. probabilistic medical harm? What evidence warrants prioritizing patient safety?",
+                        "Professional ethics: What do engineering codes of conduct require? What professional standards provide warrants for disclosure?",
+                        "Legal considerations: What are whistleblower protections vs. non-disclosure agreements? What legal warrants exist?",
+                        "Systemic view: How did profit-maximizing pressure create this situation? What institutional design warrants would prevent this?",
+                        "Moral injury: If you stay silent, can you maintain coherence between your values and actions?",
+                        "Preview: Toulmin method (taught later) helps you evaluate: Are professional ethics warrants stronger than employment loyalty warrants?"
+                    ],
+                    reflection: "Is management's 'quiet quality improvement' adequate? What warrants would justify accepting it vs. demanding immediate recall?"
+                },
+                generating: {
+                    instruction: "Generate options from incremental to transformative.",
+                    options: [
+                        {
+                            title: "Internal Escalation",
+                            description: "Escalate within the company to CEO or board of directors, documenting everything.",
+                            consequences: "Follows chain of command. Creates paper trail. But company may close ranks. Delays resolution. Ongoing harm continues during internal process."
+                        },
+                        {
+                            title: "Regulatory Report",
+                            description: "Report to FDA with documentation, triggering external investigation and likely recall.",
+                            consequences: "Stops immediate harm through recall. Protects patients. Likely triggers your termination despite protections. Company faces massive costs, possible criminal charges. May prevent industry innovation if seen as overreaction."
+                        },
+                        {
+                            title: "Media Exposure",
+                            description: "Contact investigative journalists with your documentation.",
+                            consequences: "Creates public pressure for recall. Protects many people. Destroys your career in pharma. Company may face lawsuits. May inspire copycats or create distrust in medication generally."
+                        },
+                        {
+                            title: "Resign & Disclose",
+                            description: "Resign and then make disclosures, attempting to protect yourself from retaliation.",
+                            consequences: "Protects you legally (not an employee). But removes your insider position. May not trigger action quickly. Harm continues. You lose income and benefits."
+                        }
+                    ],
+                    reflection: "What makes this different from the Challenger case? What would Boisjoly's experience teach you?"
+                },
+                engaging: {
+                    instruction: "Select an action, plan implementation, and prepare for long-term monitoring and consequences. Engaging means accepting that this situation will unfold over time and require sustained attention.",
+                    questions: [
+                        "Which option best balances your moral obligations with practical constraints? What warrants (reasons) justify this choice?",
+                        "How would you document everything to protect yourself legally and ethically?",
+                        "What would you monitor? (Is recall happening? Are more patients harmed? Is company changing practices? Are you being retaliated against?)",
+                        "What unintended consequences might emerge? (Lawsuit against you? Industry blacklisting? Copycat disclosures? Public distrust in medication?)",
+                        "What would make you escalate or shift strategies? (Company stonewalling? More harm discovered? Legal pressure?)",
+                        "How would you prepare financially and emotionally for likely retaliation? What's your sustainability plan?",
+                        "As context evolves (company initiates recall, media gets involved, your employment ends), how do you adapt your engagement?",
+                        "At what point does inaction make you complicit? When do your warrants demand you act regardless of consequences?",
+                        "Preview: Toulmin method helps you ask: Under what conditions (rebuttals) would your warrants for disclosure no longer hold?"
+                    ],
+                    expert: "Expert SAGE Analysis: This is an extreme Boisjoly situation—you've already used proper channels and been ignored. Management has explicitly chosen to externalize costs (potential patient harm) rather than internalize them (recall expenses). This is a textbook extractive institution in Chapter 2's terms. Key insight: You're being asked to carry moral injury—you know people are being harmed, you reported it properly, and the system chose profit over safety. Unlike Challenger where disaster was probabilistic, here harm is ongoing and certain. Engaging means recognizing this isn't a one-time decision but an unfolding crisis: You must monitor whether the company changes course, whether more harm emerges, whether regulatory bodies get involved. Strong SAGE analysis recognizes that 'Regulatory Report' is likely necessary because internal systems have already failed. Different frameworks provide different warrants for ongoing engagement: Professional ethics might demand immediate disclosure; utilitarian calculus might wait to gather more evidence; care ethics might consider impact on your family. The hard truth: doing the right thing will likely destroy your career. This is why we need bio-compatible institutions—places where people like you are protected rather than punished for preventing harm. Connection to Federation concepts: In a properly designed system, your initial report would have triggered automatic review by an independent sortition panel, preventing you from bearing this burden alone. Without such structures, you must engage persistently and strategically, knowing the personal cost."
+                }
+            },
+            systemic: {
+                title: "Institutional Bias: Recognizing Discrimination",
+                icon: "🏛️",
+                description: "You're a mid-level manager at a tech company. Over the past year, you've noticed a pattern: in performance reviews, women and people of color consistently receive lower ratings despite similar or better work output. Promotion decisions heavily favor a particular 'culture fit' that seems to mean 'looks and acts like the founders.' You've seen talented employees leave after being passed over repeatedly. When you raised this in a management meeting, you were told 'we hire for excellence, not diversity' and that you're being 'too political.'",
+                seeing: {
+                    instruction: "Map the systemic pattern and its effects on individuals.",
+                    checklist: [
+                        "Documented specific patterns (review ratings, promotion rates by demographic)",
+                        "Identified affected groups (women, people of color, potentially others)",
+                        "Noted company's response to concerns ('excellence not diversity', 'too political')",
+                        "Recognized your position (mid-level, able to see patterns, have some influence)",
+                        "Assessed broader impacts (talent loss, reputation, innovation, legal risk)"
+                    ],
+                    reflection: "What data would definitively prove bias vs. coincidence? How could you gather it ethically?"
+                },
+                analyzing: {
+                    instruction: "Analyze the systemic nature of the problem. Consider how different lenses provide different warrants (justifications) for what counts as bias and what action is warranted.",
+                    questions: [
+                        "How might your PRF affect your perception? (Your own identity, past experiences with bias) What personal experiences warrant your concern?",
+                        "Justice perspective: What does fairness require in hiring and promotion? What principles warrant equal treatment?",
+                        "Systemic analysis: How do informal 'culture fit' criteria create bias? What data patterns warrant claims of discrimination vs. coincidence?",
+                        "Power dynamics: Why is raising this concern labeled 'political'? What linguistic frames provide warrants for dismissing bias concerns?",
+                        "Business case: How does bias harm company performance and innovation? What evidence warrants linking bias to business outcomes?",
+                        "Is this an extractive institution? Who benefits from current patterns? Who pays the costs?",
+                        "Preview: Toulmin method (taught later) helps you distinguish strong vs. weak warrants for claims of systemic bias."
+                    ],
+                    reflection: "What data would definitively prove bias vs. coincidence? How could you gather it ethically? What warrants make your evidence compelling vs. dismissible?"
+                },
+                generating: {
+                    instruction: "Generate strategies from individual to institutional change.",
+                    options: [
+                        {
+                            title: "Document & Wait",
+                            description: "Carefully document patterns and wait for a better political moment to raise concerns again.",
+                            consequences: "Protects your position. Builds evidence. But ongoing harm continues. May be seen as complicit. Talented employees keep leaving."
+                        },
+                        {
+                            title: "Structural Reforms",
+                            description: "Propose specific process changes: blind resume reviews, diverse interview panels, standardized review criteria.",
+                            consequences: "Addresses root causes. May gain support from some leaders. Requires buy-in from skeptical management. Slow to implement. Faces resistance."
+                        },
+                        {
+                            title: "Coalition Building",
+                            description: "Work with other managers and HR to present unified data-driven case for systematic change.",
+                            consequences: "Strength in numbers. Harder to dismiss as 'political.' Builds internal momentum. Time-consuming. Some allies may drop out under pressure."
+                        },
+                        {
+                            title: "External Pressure",
+                            description: "If internal efforts fail, consult with employment lawyer about filing EEOC complaint or enabling affected employees to do so.",
+                            consequences: "Creates legal accountability. May force change. Likely ends your career at company. Could damage company publicly. May not fix culture even if legally successful."
+                        }
+                    ],
+                    reflection: "What would make this a metabolic rather than extractive institution? What structures would internalize the costs of bias?"
+                },
+                engaging: {
+                    instruction: "Choose a strategy, plan implementation, and prepare for sustained, patient engagement. Systemic change takes time—engaging means committing to long-term monitoring and adaptation.",
+                    questions: [
+                        "Which strategy best balances immediate impact with long-term culture change? What warrants (evidence, principles) justify this approach?",
+                        "How would you build coalition without exposing allies to retaliation? What's your organizing strategy?",
+                        "What would you monitor? (Are structural reforms being implemented? Are demographics of promoted employees changing? Is resistance intensifying or weakening?)",
+                        "What unintended consequences might emerge? (Backlash? Tokenism? Allies dropping out? Your career trajectory affected?)",
+                        "What metrics would show progress vs. performative change? How do you distinguish real reform from window-dressing?",
+                        "At what point do you escalate to the next level? When do warrants for internal reform become warrants for external pressure?",
+                        "How do you maintain your own integrity if progress is slow? What sustains you during years-long engagement?",
+                        "As context changes (leadership turnover, legal landscape shifts, public attention), how do you adapt your strategy?",
+                        "Preview: Toulmin method helps you evaluate: When does accumulated evidence warrant escalation? What rebuttals invalidate your claims?"
+                    ],
+                    expert: "Expert SAGE Analysis: This scenario shows how systemic bias operates through seemingly neutral criteria ('culture fit', 'excellence'). The institution is externalizing costs—losing talented employees, creating hostile environment, risking legal liability—because bias benefits those in power. This is an extractive pattern. Key insight: Unlike previous scenarios where individual action could address immediate harm, systemic discrimination requires structural change. Your individual choices matter, but they're insufficient without institutional redesign. Engaging means committing to patient, strategic, long-term work: Monitor whether coalition holds, whether reforms are implemented or just promised, whether demographics actually shift. Different frameworks provide different warrants for persistence vs. pivoting: Justice-based warrants might demand persistence regardless of progress; utilitarian warrants might suggest pivoting if internal change proves impossible; care ethics might prioritize protecting yourself and allies from burnout. Strong SAGE analysis recognizes this requires the 'Structural Reforms' or 'Coalition Building' approaches—changing the processes that create bias. You must engage persistently: Document patterns, build evidence, maintain coalition, push for concrete reforms, monitor implementation. Connection to Chapter 2 & Federation concepts: This is exactly the situation where bio-compatible design matters. The current system allows bias to persist because there's no mechanism forcing the institution to metabolize the costs. In Federation model, affected employees could trigger a Sortition Panel review of promotion patterns, creating accountability without requiring individuals to sacrifice careers. The question your engagement must answer: Can you create change from within, or does this institution need external pressure to force metabolic responsibility? Your monitoring over time will reveal the answer."
+                }
+            }
+        };
 
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
-      function unityShowBanner(msg, type) {
-        function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        let currentScenario = null;
+        let currentStep = 'seeing';
+        let completedScenarios = new Set();
+        let scenarioProgress = {};
+
+        // Load saved progress
+        function loadProgress() {
+            const saved = localStorage.getItem('sage_completed_scenarios');
+            if (saved) {
+                completedScenarios = new Set(JSON.parse(saved));
+                completedScenarios.forEach(id => {
+                    const card = document.getElementById(`card-${id}`);
+                    if (card) {
+                        card.classList.add('completed');
+                        const status = document.createElement('div');
+                        status.className = 'status';
+                        status.textContent = 'Completed';
+                        card.appendChild(status);
+                    }
+                });
+            }
+            
+            const savedProgress = localStorage.getItem('sage_scenario_progress');
+            if (savedProgress) {
+                scenarioProgress = JSON.parse(savedProgress);
+            }
         }
-        var div = document.createElement('div');
-        div.innerHTML = msg;
-        warningBanner.appendChild(div);
-        if (type == 'error') div.style = 'background: red; padding: 10px;';
-        else {
-          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-          setTimeout(function() {
-            warningBanner.removeChild(div);
-            updateBannerVisibility();
-          }, 5000);
+
+        function saveProgress() {
+            localStorage.setItem('sage_completed_scenarios', JSON.stringify([...completedScenarios]));
+            localStorage.setItem('sage_scenario_progress', JSON.stringify(scenarioProgress));
         }
-        updateBannerVisibility();
-      }
 
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/WebGL Builds.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/WebGL Builds.data.br",
-        frameworkUrl: buildUrl + "/WebGL Builds.framework.js.br",
-        codeUrl: buildUrl + "/WebGL Builds.wasm.br",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "My Lego project learning basics",
-        productVersion: "4.0.0",
-        showBanner: unityShowBanner,
-      };
+        function selectScenario(id) {
+            currentScenario = id;
+            currentStep = 'seeing';
+            document.getElementById('scenarioSelect').style.display = 'none';
+            document.getElementById('sageWorkspace').classList.add('active');
+            renderWorkspace();
+        }
 
-      // By default Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
+        function renderWorkspace() {
+            const scenario = scenarios[currentScenario];
+            const workspace = document.getElementById('sageWorkspace');
+            
+            workspace.innerHTML = `
+                <div class="scenario-header">
+                    <h2>${scenario.icon} ${scenario.title}</h2>
+                    <div class="scenario-description">
+                        <strong>The Situation:</strong>
+                        <p>${scenario.description}</p>
+                    </div>
+                </div>
 
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 25%"></div>
+                </div>
 
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-        container.className = "unity-mobile";
+                <div class="sage-steps">
+                    <div class="sage-step ${currentStep === 'seeing' ? 'active' : ''} ${isStepCompleted('seeing') ? 'completed' : ''}" 
+                         onclick="switchStep('seeing')">
+                        <div class="step-number">STEP 1</div>
+                        <div class="step-name">Seeing</div>
+                    </div>
+                    <div class="sage-step ${currentStep === 'analyzing' ? 'active' : ''} ${isStepCompleted('analyzing') ? 'completed' : ''}" 
+                         onclick="switchStep('analyzing')">
+                        <div class="step-number">STEP 2</div>
+                        <div class="step-name">Analyzing</div>
+                    </div>
+                    <div class="sage-step ${currentStep === 'generating' ? 'active' : ''} ${isStepCompleted('generating') ? 'completed' : ''}" 
+                         onclick="switchStep('generating')">
+                        <div class="step-number">STEP 3</div>
+                        <div class="step-name">Generating</div>
+                    </div>
+                    <div class="sage-step ${currentStep === 'engaging' ? 'active' : ''} ${isStepCompleted('engaging') ? 'completed' : ''}" 
+                         onclick="switchStep('engaging')">
+                        <div class="step-number">STEP 4</div>
+                        <div class="step-name">Engaging</div>
+                    </div>
+                </div>
 
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
+                <div id="stepContainer"></div>
 
-        canvas.style.width = window.innerWidth + 'px';
-        canvas.style.height = window.innerHeight + 'px';
+                <div class="step-navigation">
+                    <button class="btn btn-secondary" onclick="backToScenarios()">← Back to Scenarios</button>
+                    <button class="btn btn-primary" onclick="nextStep()" id="nextButton">Next Step →</button>
+                </div>
+            `;
 
-        unityShowBanner('WebGL builds are not supported on mobile devices.');
-      } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+            renderStep();
+            updateProgressBar();
+        }
 
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
-      }
+        function renderStep() {
+            const scenario = scenarios[currentScenario];
+            const stepData = scenario[currentStep];
+            const container = document.getElementById('stepContainer');
+            
+            let content = `<div class="step-content active">`;
+            content += `<h3>${capitalizeFirst(currentStep)}</h3>`;
+            content += `<div class="step-instruction">${stepData.instruction}</div>`;
 
-      loadingBar.style.display = "block";
+            if (currentStep === 'seeing') {
+                content += `<div class="checklist">`;
+                stepData.checklist.forEach((item, i) => {
+                    const checked = isItemChecked('seeing', i);
+                    content += `
+                        <div class="checklist-item ${checked ? 'checked' : ''}" onclick="toggleChecklistItem('seeing', ${i})">
+                            <input type="checkbox" ${checked ? 'checked' : ''} onclick="event.stopPropagation()">
+                            <label>${item}</label>
+                        </div>
+                    `;
+                });
+                content += `</div>`;
+            }
 
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-          loadingBar.style.display = "none";
-          fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
-          };
-        }).catch((message) => {
-          alert(message);
-        });
-      };
-      document.body.appendChild(script);
+            if (currentStep === 'analyzing') {
+                content += `<div><strong>Consider these questions:</strong></div>`;
+                stepData.questions.forEach((q, i) => {
+                    content += `<div style="margin: 1rem 0; padding-left: 1rem; border-left: 3px solid #667eea;">
+                        <p><strong>${i + 1}.</strong> ${q}</p>
+                    </div>`;
+                });
+            }
+
+            if (currentStep === 'generating') {
+                content += `<div class="option-grid">`;
+                stepData.options.forEach((opt, i) => {
+                    const selected = isOptionSelected(i);
+                    content += `
+                        <div class="option-card ${selected ? 'selected' : ''}" onclick="selectOption(${i})">
+                            <h4>${opt.title}</h4>
+                            <p>${opt.description}</p>
+                            <div class="consequence-box ${selected ? 'show' : ''}" id="consequence-${i}">
+                                <h4>Likely Consequences:</h4>
+                                <p>${opt.consequences}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                content += `</div>`;
+            }
+
+            if (currentStep === 'engaging') {
+                content += `<div><strong>Implementation Questions:</strong></div>`;
+                stepData.questions.forEach((q, i) => {
+                    content += `<div style="margin: 1rem 0; padding-left: 1rem; border-left: 3px solid #667eea;">
+                        <p><strong>${i + 1}.</strong> ${q}</p>
+                    </div>`;
+                });
+                
+                if (isStepCompleted('engaging')) {
+                    content += `
+                        <div class="expert-comparison">
+                            <h3>🎓 Expert SAGE Analysis</h3>
+                            <p>${stepData.expert}</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // Add reflection textarea
+            const savedReflection = getSavedReflection(currentStep);
+            content += `
+                <div style="margin-top: 2rem;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">
+                        Your Reflection:
+                    </label>
+                    <textarea class="text-input" 
+                              id="reflection-${currentStep}" 
+                              placeholder="${stepData.reflection}"
+                              onchange="saveReflection('${currentStep}')">${savedReflection}</textarea>
+                    <div class="save-indicator" id="save-indicator-${currentStep}">✓ Saved</div>
+                </div>
+            `;
+
+            content += `</div>`;
+            container.innerHTML = content;
+        }
+
+        function switchStep(step) {
+            currentStep = step;
+            renderStep();
+            updateProgressBar();
+        }
+
+        function nextStep() {
+            const steps = ['seeing', 'analyzing', 'generating', 'engaging'];
+            const currentIndex = steps.indexOf(currentStep);
+            
+            // Mark current step as completed
+            markStepCompleted(currentStep);
+            
+            if (currentIndex < steps.length - 1) {
+                currentStep = steps[currentIndex + 1];
+                renderStep();
+                updateProgressBar();
+                window.scrollTo(0, 0);
+            } else {
+                // Scenario complete
+                completeScenario();
+            }
+        }
+
+        function completeScenario() {
+            completedScenarios.add(currentScenario);
+            saveProgress();
+            
+            alert(`🎉 Scenario Complete!\n\nYou've successfully applied the SAGE method to this situation. Your reflections have been saved.\n\nReady to try another scenario?`);
+            
+            backToScenarios();
+        }
+
+        function backToScenarios() {
+            document.getElementById('sageWorkspace').classList.remove('active');
+            document.getElementById('scenarioSelect').style.display = 'block';
+            currentScenario = null;
+            loadProgress(); // Refresh completed status
+        }
+
+        function toggleChecklistItem(step, index) {
+            if (!scenarioProgress[currentScenario]) {
+                scenarioProgress[currentScenario] = {};
+            }
+            if (!scenarioProgress[currentScenario][step]) {
+                scenarioProgress[currentScenario][step] = { checked: [] };
+            }
+            
+            const checked = scenarioProgress[currentScenario][step].checked;
+            const idx = checked.indexOf(index);
+            if (idx > -1) {
+                checked.splice(idx, 1);
+            } else {
+                checked.push(index);
+            }
+            
+            saveProgress();
+            renderStep();
+        }
+
+        function isItemChecked(step, index) {
+            return scenarioProgress[currentScenario]?.[step]?.checked?.includes(index) || false;
+        }
+
+        function selectOption(index) {
+            if (!scenarioProgress[currentScenario]) {
+                scenarioProgress[currentScenario] = {};
+            }
+            if (!scenarioProgress[currentScenario].generating) {
+                scenarioProgress[currentScenario].generating = {};
+            }
+            
+            scenarioProgress[currentScenario].generating.selectedOption = index;
+            saveProgress();
+            renderStep();
+        }
+
+        function isOptionSelected(index) {
+            return scenarioProgress[currentScenario]?.generating?.selectedOption === index;
+        }
+
+        function markStepCompleted(step) {
+            if (!scenarioProgress[currentScenario]) {
+                scenarioProgress[currentScenario] = {};
+            }
+            if (!scenarioProgress[currentScenario].completed) {
+                scenarioProgress[currentScenario].completed = [];
+            }
+            
+            if (!scenarioProgress[currentScenario].completed.includes(step)) {
+                scenarioProgress[currentScenario].completed.push(step);
+            }
+            
+            saveProgress();
+        }
+
+        function isStepCompleted(step) {
+            return scenarioProgress[currentScenario]?.completed?.includes(step) || false;
+        }
+
+        function updateProgressBar() {
+            const steps = ['seeing', 'analyzing', 'generating', 'engaging'];
+            const currentIndex = steps.indexOf(currentStep);
+            const progress = ((currentIndex + 1) / steps.length) * 100;
+            
+            const fill = document.getElementById('progressFill');
+            if (fill) {
+                fill.style.width = `${progress}%`;
+            }
+            
+            const button = document.getElementById('nextButton');
+            if (button) {
+                if (currentIndex === steps.length - 1) {
+                    button.textContent = 'Complete Scenario ✓';
+                } else {
+                    button.textContent = 'Next Step →';
+                }
+            }
+        }
+
+        function saveReflection(step) {
+            const textarea = document.getElementById(`reflection-${step}`);
+            const value = textarea.value;
+            
+            if (!scenarioProgress[currentScenario]) {
+                scenarioProgress[currentScenario] = {};
+            }
+            if (!scenarioProgress[currentScenario].reflections) {
+                scenarioProgress[currentScenario].reflections = {};
+            }
+            
+            scenarioProgress[currentScenario].reflections[step] = value;
+            saveProgress();
+            
+            const indicator = document.getElementById(`save-indicator-${step}`);
+            if (indicator) {
+                indicator.classList.add('show');
+                setTimeout(() => indicator.classList.remove('show'), 2000);
+            }
+        }
+
+        function getSavedReflection(step) {
+            return scenarioProgress[currentScenario]?.reflections?.[step] || '';
+        }
+
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function showProgress() {
+            const modal = document.getElementById('progressModal');
+            const content = document.getElementById('progressContent');
+            
+            const total = Object.keys(scenarios).length;
+            const completed = completedScenarios.size;
+            const percentage = Math.round((completed / total) * 100);
+            
+            let html = `
+                <div style="margin-bottom: 1.5rem;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${percentage}%"></div>
+                    </div>
+                    <p style="text-align: center; margin-top: 0.5rem; font-weight: 600; color: #667eea;">
+                        ${completed} of ${total} scenarios completed (${percentage}%)
+                    </p>
+                </div>
+                
+                <h3 style="margin-bottom: 1rem;">Scenarios:</h3>
+                <div style="display: grid; gap: 0.5rem;">
+            `;
+            
+            Object.keys(scenarios).forEach(id => {
+                const scenario = scenarios[id];
+                const isCompleted = completedScenarios.has(id);
+                html += `
+                    <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: ${isCompleted ? '#f0fdf4' : '#f9fafb'}; border-radius: 0.5rem;">
+                        <span style="font-size: 1.5rem;">${scenario.icon}</span>
+                        <span style="flex: 1;">${scenario.title.split(':')[0]}</span>
+                        <span style="font-size: 1.25rem;">${isCompleted ? '✅' : '⬜'}</span>
+                    </div>
+                `;
+            });
+            
+            html += `</div>`;
+            content.innerHTML = html;
+            modal.classList.add('show');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        function exportReflections() {
+            let text = `SAGE Method Interactive - My Reflections\n`;
+            text += `Generated: ${new Date().toLocaleString()}\n`;
+            text += `Completed Scenarios: ${completedScenarios.size}/${Object.keys(scenarios).length}\n`;
+            text += `\n${'='.repeat(60)}\n\n`;
+            
+            Object.keys(scenarios).forEach(id => {
+                if (scenarioProgress[id]?.reflections) {
+                    const scenario = scenarios[id];
+                    text += `${scenario.title}\n`;
+                    text += `${'-'.repeat(60)}\n\n`;
+                    
+                    const steps = ['seeing', 'analyzing', 'generating', 'engaging'];
+                    steps.forEach(step => {
+                        const reflection = scenarioProgress[id].reflections[step];
+                        if (reflection) {
+                            text += `${capitalizeFirst(step)}:\n`;
+                            text += `${reflection}\n\n`;
+                        }
+                    });
+                    
+                    text += `\n${'='.repeat(60)}\n\n`;
+                }
+            });
+            
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `SAGE_Reflections_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize
+        loadProgress();
     </script>
-  </body>
+</body>
 </html>
